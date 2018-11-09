@@ -3,10 +3,6 @@ import ReactDOM from 'react-dom';
 import Panel from "../src/fd-panels";
 import styled, { css } from 'styled-components';
 
-const style = document.createElement('style');
-style.setAttribute('id', 'style');
-(document.querySelector('main') as HTMLDivElement).appendChild(style);
-
 const main1 = document.createElement('div');
 main1.setAttribute('id', 'main1');
 (document.querySelector('main') as HTMLDivElement).appendChild(main1);
@@ -23,23 +19,12 @@ const aside2 = document.createElement('div');
 aside2.setAttribute('id', 'aside2');
 (document.querySelector('aside') as HTMLDivElement).appendChild(aside2);
 
-const globalStyles = css`
-    body {
-        margin: 1rem;
-    }
-`;
-
 const MostReadPanel = styled(Panel)`
     border-bottom: 0;
     article h3 {
         margin-bottom: 0;
     }
 `;
-
-ReactDOM.render(
-    <style>{globalStyles}</style>,
-    style
-);
 
 ReactDOM.render(
     <Panel>
