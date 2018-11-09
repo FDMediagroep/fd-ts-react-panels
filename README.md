@@ -13,3 +13,23 @@ FD-themed panels
 To run the demo, check-out this repository and run `npm run build-demo`.
 After the build succeeded you can open `dist/demo.html` with your webbrowser.
 * [Demo](http://static.fd.nl/react/panels/demo.html)
+
+# Props
+```
+export interface Props {
+    /**
+     * Optional set a box-shadow. This effect replaces the default 1 pixel border.
+     */
+    boxShadow?: boolean;
+}
+```
+
+# Usage
+```
+import Panel from '@fdmg/fd-panels';
+...
+<Panel boxShadow={true}>
+    <h2>Volg dit nieuwsverhaal</h2>
+    <p>Ontvang een update wanneer we een vervolgartikel plaatsen.</p>
+</Panel>
+```

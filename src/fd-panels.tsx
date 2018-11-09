@@ -2,6 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 
 export interface Props {
+    /**
+     * Optional. Set a box-shadow. This effect replaces the default 1 pixel border.
+     */
     boxShadow?: boolean;
 }
 

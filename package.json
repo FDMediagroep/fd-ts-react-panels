@@ -1,6 +1,6 @@
 {
   "name": "@fdmg/fd-panels",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "FD-themed panels",
   "types": "dist/fd-panels.d.ts",
   "main": "dist/fd-panels.js",
