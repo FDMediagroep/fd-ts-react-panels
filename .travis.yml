@@ -30,13 +30,10 @@ jobs:
 after_success:
 - cat ./dist/coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
 deploy:
-  matrix:
   - provider: npm
     email: willem_liu@hotmail.com
     on:
       branch: master
-    api_key:
-      secure: D3zF6EEhcJxWIB1pLZeeGl7Re9vHFtIKaoG57GRVI4efCao9+tar8HvRYMnAxChz5oPCxyHQBX7AIwQMBEVl2tIR1l2dtoVEYxDCaL58sQFSRJl92XqnFO/hQ7onuR41Kv8BWZcmOQe0k9NZE5BWm9tIJBImytfRSGLht0uomLjCStLOo3Wxs7cXqsG5TDejzqJWa/3rSeo5jI/DMp6BVHlSP6HAPkalZZSa+pRiQhoe0uDmHInDNvOtL6rlfbpUKjk8G/1Bms9W1kHjj8Q7HhQ841hYLperINGZr7ttW3NNJeaitjV8kUWn5Q/f/eXSRWJm/n7oXZEBE7pY8HBrelHRDynU/J4PW96JKmyVfts6k4pqTQ4L0FLhkhl3FtTcTSL15Zxg9pjaJIRUBEkoxAUWqtr+eMC67n4dzePblJLc9qm4aHF6nP7WT/SxWhG/UxCxdHMx3hn+mZ5dkmDT+NRnVS0xsy0ElOS3jmMvYDYaqQQZYNPo8LcN8SsQCkG0ftV7BQg5TMcx7+r7opksxvQ+p3JMw7o2hCiSYIRGy5MZZrQAqqLSQtxTIgb+8b8vv6WgsiitTKGrioKerD2mhMfISKnE/gWym87PlMPgG1q2AimN3CpRCl4A8gPWJAD0gnupvdqiqJbRJJ5Px5V/PaR+Qv80ySCvN/aPtbDFxW4=
   - provider: s3
     region: eu-west-1
     bucket: static.fd.nl
