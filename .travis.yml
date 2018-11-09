@@ -1,0 +1,55 @@
+language: node_js
+node_js:
+- node
+python:
+- '3.6'
+cache:
+- pip
+addons:
+  apt:
+    packages:
+    - nodejs-legacy
+branches:
+  only:
+  - master
+stages:
+- test
+before_install:
+- pip install --user awscli
+- export PATH=$PATH:$HOME/.local/bin
+install:
+- npm install
+jobs:
+  include:
+  - stage: test
+    name: Build demo
+    script: npm run build-demo
+  - stage: test
+    name: Unit test
+    script: npm test
+after_success:
+- cat ./dist/coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
+deploy:
+  matrix:
+  - provider: npm
+    email: willem_liu@hotmail.com
+    on:
+      branch: master
+    api_key:
+      secure: D3zF6EEhcJxWIB1pLZeeGl7Re9vHFtIKaoG57GRVI4efCao9+tar8HvRYMnAxChz5oPCxyHQBX7AIwQMBEVl2tIR1l2dtoVEYxDCaL58sQFSRJl92XqnFO/hQ7onuR41Kv8BWZcmOQe0k9NZE5BWm9tIJBImytfRSGLht0uomLjCStLOo3Wxs7cXqsG5TDejzqJWa/3rSeo5jI/DMp6BVHlSP6HAPkalZZSa+pRiQhoe0uDmHInDNvOtL6rlfbpUKjk8G/1Bms9W1kHjj8Q7HhQ841hYLperINGZr7ttW3NNJeaitjV8kUWn5Q/f/eXSRWJm/n7oXZEBE7pY8HBrelHRDynU/J4PW96JKmyVfts6k4pqTQ4L0FLhkhl3FtTcTSL15Zxg9pjaJIRUBEkoxAUWqtr+eMC67n4dzePblJLc9qm4aHF6nP7WT/SxWhG/UxCxdHMx3hn+mZ5dkmDT+NRnVS0xsy0ElOS3jmMvYDYaqQQZYNPo8LcN8SsQCkG0ftV7BQg5TMcx7+r7opksxvQ+p3JMw7o2hCiSYIRGy5MZZrQAqqLSQtxTIgb+8b8vv6WgsiitTKGrioKerD2mhMfISKnE/gWym87PlMPgG1q2AimN3CpRCl4A8gPWJAD0gnupvdqiqJbRJJ5Px5V/PaR+Qv80ySCvN/aPtbDFxW4=
+  - provider: s3
+    region: eu-west-1
+    bucket: static.fd.nl
+    skip_cleanup: true
+    acl: public_read
+    local_dir: dist
+    upload_dir: react/panels
+    on:
+      branch: master
+    access_key_id:
+      secure: JxsaxaKIXHEdB0HRzPl3MRwd0mvCim6+XisBf0kCY9mbLiSegKMENtLraWjUs+GaXwvdcwwEE7egu/SFYy9tmJhCPb3e1yOrng0hCOr2z3so6HPsMMAu8EWWw6epWS0eXT+L4zmcneM46euoSvqIpyBOsAhp3sNj1r4q5KEVec45B/9Xk9WJfGu7Ig+diHOM2woRuusTKxTMH/XXjgjNO+mgLTC9J+gC9V9jpnhcHjU99IsFFHtxtiJHo8ipJWDHfA0b5uh1b8Qju1YQZIoetOo3Rs2yC1TxozKG1iEm7PeFA72iybo4JPh1PH4wxuzEcdqpZSXipm+orSuzUjXhQHQ4grsAbHHspWjrZSRvv6JBG3qNYtGiMUR7QwPIxPCGfXteCvkm7s+h3b+DKV5qBy8HgB26rtzVngMXNzGdwqF7xoRtTde9QiKRa6XVUtpu9N19Lc3vvAh6G+3lYnUniVfaLfWKA2JgCSquuUcW92ZAfCe0YNprEFzTXKhFhP5wbWoEIJ6hOn/vGAg5CwsQzT3mhQtbeJAXaUZy8odfRQSxjpPI546bU0qJJ2E+AlnBGEGvZrFmF9QeQTLeZVoZWF2fBhyJmK4CkSicN0xDTZDdSvombyRMp/AXiJSttH3f98CCVm1pTqjjBaWpt7fIiA+lLWYLVxVa0CXtbQnskuc=
+    secret_access_key:
+      secure: ASObyBgv43/P1aQnbgUGtKW5q1v8DCneFeoKC+pw18MV0vahIeGynnv9c2ZBTnmwcVCGa1oghQo6TARzxtr4y6e9uGO4eL8cIKvajoNZjQ+14R78c+VizvvdUXrXKht/x0h8ACycJYz42EmOa3FulVaafTfzqNbdfLOJbVPkGokfAhegeX/SC5y1NUFM7yWiVIrQOdy7UrUYoR7mHr9CSOlnGigPgonhHOXT/SjQFro3duucYOiM9+uU4nakIfDcZ5Fm7Ljsc0j6W7tSsZfjhKozsRd8WYN3QsMUJbo2QOvKyKqxyhXEIK17SlVxMjMANSsMbKYKFLga668jbQUwCSlLuLKy4F2T6+xqKLgI9JzShu+vKj6azDwdVYyq084z2XLha772MRf3bVJ58AxSH3o3uqARKAtGlwtyhnUX3Ror6G0AEVBDc7IiJTAVXQzmT/50E1lqYr44NEyhNxba3d0xFOH/yuwT4e2wkXSUm0O5iA9Dd6dapt2KkrQw1xtpDz74MPUbggohj5V78bawKDWtYHsR8VFR9jeGh2lHtloiQT4tUBm5Fvfc13ha1AbkyQGUgiMGt4dd9m9D1E+Yegmx3pcN6lghXx2LCFJ8JekJf9jljVdZeDEY8pEdNVYgnR9wtce5ot796W6z79d85ymxZXHPsAT1Ad+wwq4BWW0=
+after_deploy:
+- aws cloudfront create-invalidation --distribution-id $CDN_DISTRIBUTION_ID --paths
+  "/react/panels/*"
