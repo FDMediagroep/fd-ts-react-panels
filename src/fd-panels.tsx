@@ -8,7 +8,7 @@ export interface Props {
 export default class Panel extends React.PureComponent<Props&any, any> {
     static defaultProps = {
         boxShadow: false
-    }
+    };
 
     render() {
         return (
