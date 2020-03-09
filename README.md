@@ -1,7 +1,7 @@
 [![Build Status](https://travis-ci.org/FDMediagroep/fd-ts-react-panels.svg?branch=master)](https://travis-ci.org/FDMediagroep/fd-ts-react-panels)
 [![Coverage Status](https://coveralls.io/repos/github/FDMediagroep/fd-ts-react-panels/badge.svg?branch=master)](https://coveralls.io/github/FDMediagroep/fd-ts-react-panels?branch=master)
 [![npm version](https://badge.fury.io/js/%40fdmg%2Ffd-panels.svg)](https://badge.fury.io/js/%40fdmg%2Ffd-panels)
-[![Greenkeeper badge](https://badges.greenkeeper.io/FDMediagroep/fd-ts-react-panels.svg)](https://greenkeeper.io/)
+
 
 # fd-panels
 FD-themed panels
